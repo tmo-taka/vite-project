@@ -9,7 +9,7 @@ type Props ={
 }
 
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
-const Button: React.FC<Props> = (props) =>{
+export const Button: React.FC<Props> = (props) =>{
 
     return (
         <button className={props.type} onClick={() => props.onClick()}>
@@ -17,5 +17,3 @@ const Button: React.FC<Props> = (props) =>{
         </button>
     )
 }
-
-export default Button
