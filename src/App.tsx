@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState,createContext } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {Button} from './components/button'
 import {MemoText} from './components/text'
+import { DataProvider } from './context/dataContext';
 
 function App() {
   const [count, setCount] = useState<number>(0)
   const [num, setNum] = useState<number>(1)
+
+  const CountContext = createContext<number>(count);
 
   const increment = ():void =>{
     setCount(count+num)
@@ -47,8 +50,10 @@ function App() {
           </div>
       </div>
       <input type="text" value={num} onChange={(event) => changeCount(event)}/>
-      <Button type="small" txt="これがボタンです" onClick={handClick}/>
-      <MemoText txt="これです"/>
+      <DataProvider>
+        <Button type="small" txt="これがボタンです" onClick={handClick}/>
+      </DataProvider>
+        <MemoText txt="これです"/>
     </div>
   )
 }

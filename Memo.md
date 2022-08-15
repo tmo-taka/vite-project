@@ -1,3 +1,7 @@
-# 結局reactでのコンポーネントはクラス？関数？
+## 結局reactでのコンポーネントはクラス？関数？
 個人的にも関数かな？と
 [参考](https://fullstacklife.net/programming/react/ract-class-function-component/)
+
+## createContextの型問題
+[参考](https://zenn.dev/ryota_koba04/articles/18df7cbfeb4155)
+[こっちの方が良さう](https://qiita.com/jonakp/items/58c9c383473d02479ea7)

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDataContext } from '../context/dataContext';
 
 type Props ={
     type: small | normal | large,
@@ -11,9 +12,14 @@ type Props ={
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
 export const Button: React.FC<Props> = (props) =>{
 
+    const {data, setData} = useDataContext()
+
     return (
-        <button className={props.type} onClick={() => props.onClick()}>
-            {props.txt}
-        </button>
+        <div>
+            <button className={props.type} onClick={() => props.onClick()}>
+                {props.txt} + {data}
+            </button>
+            <a onClick={() => setData(data+1)}>contextのリンク</a>
+        </div>
     )
 }
