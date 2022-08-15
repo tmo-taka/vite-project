@@ -1,19 +1,19 @@
 import React from "react";
 
 type Props ={
-    type: small | normal | large,
     txt: string,
-    onClick: () => void
-    color?: string,
     children?: React.ReactNode
 }
 
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
-export const Button: React.FC<Props> = (props) =>{
+export const Text: React.FC<Props> = (props) =>{
+    console.log('再描写')
 
     return (
-        <button className={props.type} onClick={() => props.onClick()}>
+        <div>
             {props.txt}
-        </button>
+        </div>
     )
 }
+
+export const MemoText = React.memo(Text);

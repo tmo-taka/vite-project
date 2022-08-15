@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {Button} from './components/button'
+import {MemoText} from './components/text'
 
 function App() {
   const [count, setCount] = useState<number>(0)
@@ -47,6 +48,7 @@ function App() {
       </div>
       <input type="text" value={num} onChange={(event) => changeCount(event)}/>
       <Button type="small" txt="これがボタンです" onClick={handClick}/>
+      <MemoText txt="これです"/>
     </div>
   )
 }
