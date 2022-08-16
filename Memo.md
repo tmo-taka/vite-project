@@ -5,3 +5,6 @@
 ## createContextの型問題
 [参考](https://zenn.dev/ryota_koba04/articles/18df7cbfeb4155)
 [こっちの方が良さう](https://qiita.com/jonakp/items/58c9c383473d02479ea7)
+
+## ルーティングについて
+[参考](https://www.webopixel.net/javascript/1773.html)
