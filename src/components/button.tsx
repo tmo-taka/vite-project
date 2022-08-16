@@ -1,5 +1,6 @@
 import React from "react";
 import { useDataContext } from '../context/dataContext';
+import {ButtonIn} from '../components/buttonIn'
 
 type Props ={
     type: small | normal | large,
@@ -19,7 +20,7 @@ export const Button: React.FC<Props> = (props) =>{
             <button className={props.type} onClick={() => props.onClick()}>
                 {props.txt} + {data}
             </button>
-            <a onClick={() => setData(data+1)}>contextのリンク</a>
+            <ButtonIn />
         </div>
     )
 }
