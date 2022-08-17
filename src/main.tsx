@@ -14,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}/>
-        <Route path="post" element={<Post />}/>
+        {/* スプレッド演算子使えないのか... */}
+        {/* <Route path="post/:[...slug]" element={<Post />}/> */}
+        <Route path="/post/:slug" element={<Post />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
