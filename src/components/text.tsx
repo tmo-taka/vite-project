@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef,useEffect} from "react";
 import { css,cx } from '@emotion/css';
 
 type Props ={
@@ -11,14 +11,12 @@ export const Text: React.FC<Props> = (props) =>{
     console.log('再描写')
 
     const wrapper = useRef<HTMLDivElement>(null)
-
-    if(props.txt === 'これです'){
-        console.log(wrapper.current);
-        wrapper.current?.classList.add('big')
-        console.log(wrapper.current?.classList);
-    }else {
-        console.log(props.txt)
-    }
+    // NOTE:やっぱりDOM生成された後でないとuseRefがnull値なのでuseEffect噛ませる必要ありか...
+    useEffect(() => {
+        if(props.txt === 'これです'){
+            wrapper.current?.classList.add('big')
+        }
+    },[])
 
     const styles = {
         container: css`

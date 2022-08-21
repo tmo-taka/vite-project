@@ -8,3 +8,6 @@
 
 ## ルーティングについて
 [参考](https://www.webopixel.net/javascript/1773.html)
+
+## useRefの使い所
+[参考](https://ramble.impl.co.jp/413/)

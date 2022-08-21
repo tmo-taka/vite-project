@@ -3,7 +3,7 @@ import { useDataContext } from '../context/dataContext';
 import {ButtonIn} from '../components/buttonIn'
 
 type Props ={
-    type: small | normal | large,
+    type: 'small' | 'normal' | 'large',
     txt: string,
     onClick: () => void
     color?: string,
