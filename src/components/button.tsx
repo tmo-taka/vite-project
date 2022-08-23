@@ -15,6 +15,9 @@ export const Button: React.FC<Props> = (props) =>{
 
     const {data, setData} = useDataContext()
 
+    // NOTE:contextの場合は親、子、孫すべてdataを使っている場合再描画されるので最適化必須
+    console.log(`Button再描画`);
+
     return (
         <div>
             <button className={props.type} onClick={() => props.onClick()}>

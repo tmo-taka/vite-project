@@ -1,8 +1,10 @@
 import { useState,createContext } from 'react'
+import { RecoilRoot} from 'recoil'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {Button} from './components/button'
-import {MemoText} from './components/text'
+import {MemoText } from './components/text'
+import { RecoilTest} from './components/recoilTest'
 import { DataProvider } from './context/dataContext';
 
 function App() {
@@ -53,7 +55,10 @@ function App() {
       <DataProvider>
         <Button type="small" txt="これがボタンです" onClick={handClick}/>
       </DataProvider>
-        <MemoText txt="これです"/>
+      <MemoText txt="これです"/>
+      <RecoilRoot>
+        <RecoilTest />
+      </RecoilRoot>
     </div>
   )
 }
