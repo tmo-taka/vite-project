@@ -1,6 +1,6 @@
 import React from "react";
-import { useDataContext } from '../context/dataContext';
-import {ButtonIn} from '../components/buttonIn'
+import { useDataContext } from '@Context/dataContext';
+import {ButtonIn} from '@Components/buttonIn'
 
 type Props ={
     type: 'small' | 'normal' | 'large',

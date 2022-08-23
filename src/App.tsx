@@ -2,10 +2,10 @@ import { useState,createContext } from 'react'
 import { RecoilRoot} from 'recoil'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import {Button} from './components/button'
-import {MemoText } from './components/text'
-import { RecoilTest} from './components/recoilTest'
-import { DataProvider } from './context/dataContext';
+import {Button} from '@Components/button'
+import {MemoText } from '@Components/text'
+import { RecoilTest} from '@Components/recoilTest'
+import { DataProvider } from '@Context/dataContext';
 
 function App() {
   const [count, setCount] = useState<number>(0)

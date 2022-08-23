@@ -1,5 +1,5 @@
 import React from "react";
-import { RecoilTestInIn } from '../components/recoilTestInIn'
+import { RecoilTestInIn } from '@Components/recoilTestInIn'
 
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
 export const RecoilTestIn: React.FC = () =>{
