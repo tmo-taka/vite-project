@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState, useRecoilState } from "recoil"
-import { valAtom, valSelector } from "../store/valAtom"
+import { valAtom, valSelector } from "@Store/valAtom"
 
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
 export const RecoilTestInIn: React.FC = React.memo(() =>{

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDataContext } from '../context/dataContext';
+import { useDataContext } from '@Context/dataContext';
 import { css } from '@emotion/css';
 
 // React18からはFCからはchildrenの型定義が削除されたので定義する必要あり
