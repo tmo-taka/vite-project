@@ -9,7 +9,14 @@ export default defineConfig({
     outDir: './output'
   },
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+        '/api/weather': {
+            target: 'https://weather.tsukumijima.net/api/forecast/city/200010',
+            changeOrigin: true,
+            rewrite: (path) => path.replace('/api/weather', ''),
+        }
+    }
   },
   plugins: [tsconfigPaths(),react()]
 })

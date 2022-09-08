@@ -1,10 +1,11 @@
-import { useState,createContext } from 'react'
+import { useState,createContext,Suspense } from 'react'
 import { RecoilRoot} from 'recoil'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {Button} from '@Components/button'
 import {MemoText } from '@Components/text'
 import { RecoilTest} from '@Components/recoilTest'
+import { Fetch } from '@Components/fetch'
 import { DataProvider } from '@Context/dataContext';
 
 function App() {
@@ -59,6 +60,9 @@ function App() {
       <RecoilRoot>
         <RecoilTest />
       </RecoilRoot>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Fetch />
+      </Suspense>
     </div>
   )
 }
