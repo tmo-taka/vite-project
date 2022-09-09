@@ -11,3 +11,6 @@
 
 ## useRefの使い所
 [参考](https://ramble.impl.co.jp/413/)
+
+## suspence
+[参考](https://zenn.dev/uhyo/books/react-concurrent-handson/viewer/introduction)
