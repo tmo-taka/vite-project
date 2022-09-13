@@ -5,8 +5,8 @@ import './App.css'
 import {Button} from '@Components/button'
 import {MemoText } from '@Components/text'
 import { RecoilTest} from '@Components/recoilTest'
-import { Fetch } from '@Components/fetch'
 import { DataProvider } from '@Context/dataContext';
+import { FetchState } from '@Components/fetchState'
 
 function App() {
   const [count, setCount] = useState<number>(0)
@@ -61,7 +61,7 @@ function App() {
         <RecoilTest />
       </RecoilRoot>
       <Suspense fallback={<p>Loading...</p>}>
-        <Fetch />
+        <FetchState />
       </Suspense>
     </div>
   )
