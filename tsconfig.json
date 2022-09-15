@@ -20,6 +20,7 @@
       "@Components/*": ["./src/components/*"],
       "@Store/*": ["./src/store/*"],
       "@Context/*": ["./src/context/*"],
+      "@Hooks/*": ["./src/hooks/*"],
     }
   },
   "include": ["src"],

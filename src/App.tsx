@@ -6,7 +6,8 @@ import {Button} from '@Components/button'
 import {MemoText } from '@Components/text'
 import { RecoilTest} from '@Components/recoilTest'
 import { DataProvider } from '@Context/dataContext';
-import { FetchState } from '@Components/fetchState'
+import { FetchWeather } from '@Components/fetchWeather'
+import { FetchWeather2 } from '@Components/fetchWeather2'
 
 function App() {
   const [count, setCount] = useState<number>(0)
@@ -61,7 +62,10 @@ function App() {
         <RecoilTest />
       </RecoilRoot>
       <Suspense fallback={<p>Loading...</p>}>
-        <FetchState />
+        <FetchWeather2 />
+      </Suspense>
+      <Suspense fallback={<p>sleep...</p>}>
+        <FetchWeather />
       </Suspense>
     </div>
   )
