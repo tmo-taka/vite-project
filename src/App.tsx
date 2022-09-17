@@ -8,6 +8,8 @@ import { RecoilTest} from '@Components/recoilTest'
 import { DataProvider } from '@Context/dataContext';
 import { FetchWeather } from '@Components/fetchWeather'
 import { FetchWeather2 } from '@Components/fetchWeather2'
+import { Loadable} from '@Store/loadable'
+import { DataLoader} from '@Components/dataLoader'
 
 function App() {
   const [count, setCount] = useState<number>(0)
@@ -21,6 +23,16 @@ function App() {
   const decrement = ():void =>{
     setCount(count-num)
   }
+
+  const sleep = (sec:number) => new Promise(resolve => setTimeout(resolve, sec * 1000));
+
+  async function fetchData1(): Promise<string> {
+    await sleep(Math.floor(Math.random() * 10));
+    return `Hello, ${(Math.random() * 10).toFixed(0)}`;
+  }
+
+  const [data1] = useState(() => new Loadable(fetchData1()));
+  const [data2] = useState(() => new Loadable(fetchData1()));
 
   const changeCount = (event: {target : HTMLInputElement }):void =>{
     const value:string = event.target.value
@@ -63,9 +75,14 @@ function App() {
       </RecoilRoot>
       <Suspense fallback={<p>Loading...</p>}>
         <FetchWeather2 />
-      </Suspense>
-      <Suspense fallback={<p>sleep...</p>}>
         <FetchWeather />
+      </Suspense>
+
+      <Suspense fallback={<p>Loading1...</p>}>
+        <DataLoader data={data1} />
+      </Suspense>
+      <Suspense fallback={<p>Loading2...</p>}>
+        <DataLoader data={data2} />
       </Suspense>
     </div>
   )
