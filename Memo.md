@@ -17,3 +17,6 @@
 
 ## chakra UIこれも試したい（軽量化）
 [参考](https://zenn.dev/wado63/articles/09e09151d160f3)
+
+## chakra UIのcolorScheme Customize not workingについて
+[参考](https://stackoverflow.com/questions/64951508/chakra-ui-colorscheme-prop-on-button)

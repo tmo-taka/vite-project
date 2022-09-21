@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input ,InputGroup, InputRightElement, Button, Heading, Box} from "@chakra-ui/react";
+import { Input ,InputGroup, InputRightElement, Button, Heading, Box, Text } from "@chakra-ui/react";
 import { RecoilRoot} from 'recoil'
 import './App.css'
 
@@ -21,20 +21,25 @@ function App() {
 
   return (
     <div>
-      <Heading color="primary" mb={16}>Hello {member.name}</Heading>
+      <Heading mb={16}>Hello,<Text color="primary.500">{member.name}</Text></Heading>
       <Box w='560px' m={[0, 'auto']} >
         <Input
           placeholder='name'
           size='md'
           mb={8}
+          p={4}
           value={member.name}
           onChange={(event) => inputForm('name',event)}
+          bg="white"
         />
         <InputGroup size='md'>
           <Input
             placeholder='password'
             size='md'
+            mb={8}
+            p={4}
             type={show ? 'text' : 'password'}
+            bg="white"
             value={member.password}
             onChange={(event) => inputForm('password',event)}
           />
@@ -44,6 +49,7 @@ function App() {
             </Button>
           </InputRightElement>
         </InputGroup>
+        <Button colorScheme='accent'>Sign In</Button>
       </Box>
     </div>
   )
