@@ -12,16 +12,16 @@ function App() {
   const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
       const obj:Member = {...member};
       obj[key] = event.target.value;
-      setMember(
-        obj
-      )
+      setMember(obj)
   }
 
   return (
     <div>
       <h1>Hello {member.name}</h1>
-      <input type="text" value={member.name} onChange={(event) => inputForm('name',event)} />
-      <input type="text" value={member.password} onChange={(event) => inputForm('password',event)} />
+      <div>
+        <input type="text" value={member.name} onChange={(event) => inputForm('name',event)} />
+        <input type="text" value={member.password} onChange={(event) => inputForm('password',event)} />
+      </div>
     </div>
   )
 }
