@@ -1,9 +1,9 @@
 import React from 'react'
+import { ChakraProvider} from '@chakra-ui/react'
+import { theme } from '@Styles/theme'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import Post from './Post'
 import Error from './Error'
-import './index.css'
 import {
   BrowserRouter,
   Routes,
@@ -12,14 +12,13 @@ import {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}/>
-        {/* スプレッド演算子使えないのか... */}
-        {/* <Route path="post/:[...slug]" element={<Post />}/> */}
-        <Route path="/post/:slug" element={<Post />}/>
-        <Route path="*" element={<Error />}/>
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}/>
+          <Route path="*" element={<Error />}/>
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   </React.StrictMode>
 )
