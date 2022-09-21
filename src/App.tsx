@@ -9,21 +9,19 @@ function App() {
   }
   const [member,setMember] = useState<Member>({name:'',password:''})
 
-  const inputForm = (event: {target: HTMLInputElement}):void =>{
-    setMember(
-      {
-        ...member,
-        name:event.target.value
-      }
-    )
-    console.log(member)
+  const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
+      const obj:Member = {...member};
+      obj[key] = event.target.value;
+      setMember(
+        obj
+      )
   }
 
   return (
     <div>
       <h1>Hello {member.name}</h1>
-      <input type="text" value={member.name} onChange={inputForm} />
-      <input type="text" value={member.password} onChange={inputForm} />
+      <input type="text" value={member.name} onChange={(event) => inputForm('name',event)} />
+      <input type="text" value={member.password} onChange={(event) => inputForm('password',event)} />
     </div>
   )
 }
