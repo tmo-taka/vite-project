@@ -10,6 +10,7 @@
 | altJS      | TypeScript                  |
 | build      | vite                        |
 | css        | emotion css (chakra UI)     |
+| tools      | Amplify                     |
 | state      | useState and recoil         |
 
 ## 練習したもの
