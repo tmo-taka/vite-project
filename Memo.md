@@ -1,3 +1,5 @@
+# React関連
+
 ## 結局reactでのコンポーネントはクラス？関数？
 個人的にも関数かな？と
 [参考](https://fullstacklife.net/programming/react/ract-class-function-component/)
@@ -15,20 +17,26 @@
 ## suspence
 [参考](https://zenn.dev/uhyo/books/react-concurrent-handson/viewer/introduction)
 
+# Vite関連
+
+## viteで環境変数
+[参考](https://blog.recruit.co.jp/rmp/front-end/post-21271/)
+- Nextみたい
+
+# chakraUI関連
+
 ## chakra UIこれも試したい（軽量化）
 [参考](https://zenn.dev/wado63/articles/09e09151d160f3)
 
 ## chakra UIのcolorScheme Customize not workingについて
 [参考](https://stackoverflow.com/questions/64951508/chakra-ui-colorscheme-prop-on-button)
 
+# Amplify関連
+
 ## viteでAmplifyエラー
 [参考](https://dev.to/richardbray/how-to-fix-the-referenceerror-global-is-not-defined-error-in-sveltekitvite-2i49)
 
-## viteで環境変数
-[参考](https://blog.recruit.co.jp/rmp/front-end/post-21271/)
-- Nextみたい
-
-## PoolIDなどの明記
+## PoolIDなどの確認場所
 [参考](https://github.com/aws-amplify/amplify-js/issues/29)
 
 ## client IDを発行する際はシークレットを外さないとエラーになる
