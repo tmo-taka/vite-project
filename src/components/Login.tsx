@@ -1,4 +1,6 @@
 import {Amplify, Auth } from 'aws-amplify';
+import { Button } from "@chakra-ui/react";
+import { FC } from 'react';
 
 export const authConfig =({
     region: 'ap-northeast-1',
@@ -8,11 +10,22 @@ export const authConfig =({
 
 Amplify.configure({ Auth: authConfig })
 
-export const Login = () =>{
+type Member ={
+    name: string,
+    password: string
+}
+
+type Props = {
+    readonly member: Member,
+    children?: React.ReactNode
+}
+
+
+export const Login: FC<Props> = (props) =>{
 
     const handleLoginClick = async () => {
         try {
-            const cognitoUser = await Auth.signIn('ユーザーID', 'パスワード')
+            const cognitoUser = await Auth.signIn(props.member.name, props.member.password)
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
             if ( error.code === 'UserNotFoundException') {
@@ -26,6 +39,6 @@ export const Login = () =>{
     }
 
     return (
-        <button type="button" onClick={handleLoginClick}>ログイン</button>
+        <Button colorScheme='accent' onClick={handleLoginClick}>Sign In</Button>
     )
 }

@@ -1,5 +1,5 @@
 import { useState ,useEffect } from 'react'
-import { Input ,InputGroup, InputRightElement, Button, Heading, Box, Text } from "@chakra-ui/react";
+import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text } from "@chakra-ui/react";
 import { RecoilRoot} from 'recoil'
 import { Login } from '@Components/Login'
 
@@ -49,9 +49,8 @@ const App = () =>{
             </Button>
           </InputRightElement>
         </InputGroup>
-        <Button colorScheme='accent'>Sign In</Button>
       </Box>
-      <Login />
+      <Login member={member} />
     </div>
   )
 }

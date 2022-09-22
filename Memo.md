@@ -30,3 +30,6 @@
 
 ## PoolIDなどの明記
 [参考](https://github.com/aws-amplify/amplify-js/issues/29)
+
+## client IDを発行する際はシークレットを外さないとエラーになる
+[参考](https://rinoguchi.net/2022/01/cognito-identity-provider-api-authentication.html#toc-11)
