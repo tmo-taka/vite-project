@@ -18,5 +18,8 @@ export default defineConfig({
         }
     }
   },
+  define: {
+    "global": {},
+  },
   plugins: [tsconfigPaths(),react()]
 })

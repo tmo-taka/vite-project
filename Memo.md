@@ -20,3 +20,13 @@
 
 ## chakra UIのcolorScheme Customize not workingについて
 [参考](https://stackoverflow.com/questions/64951508/chakra-ui-colorscheme-prop-on-button)
+
+## viteでAmplifyエラー
+[参考](https://dev.to/richardbray/how-to-fix-the-referenceerror-global-is-not-defined-error-in-sveltekitvite-2i49)
+
+## viteで環境変数
+[参考](https://blog.recruit.co.jp/rmp/front-end/post-21271/)
+- Nextみたい
+
+## PoolIDなどの明記
+[参考](https://github.com/aws-amplify/amplify-js/issues/29)
