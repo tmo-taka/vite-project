@@ -1,7 +1,8 @@
-import { useState ,useEffect } from 'react'
-import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text } from "@chakra-ui/react";
-import { RecoilRoot} from 'recoil'
-import { Login } from '@Components/Login'
+import { useState } from 'react'
+import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text ,Stack } from "@chakra-ui/react";
+import { RecoilRoot } from 'recoil'
+import { SignIn } from '@Components/SignIn'
+import { SignUp } from '@Components/SignUp'
 
 const App = () =>{
   type Member ={
@@ -20,7 +21,7 @@ const App = () =>{
   const displayClick = () => setShow(!show);
 
   return (
-    <div>
+    <RecoilRoot>
       <Heading mb={16}>Hello,<Text color="primary.500">{member.name}</Text></Heading>
       <Box w='560px' m={[0, 'auto']} >
         <Input
@@ -50,8 +51,11 @@ const App = () =>{
           </InputRightElement>
         </InputGroup>
       </Box>
-      <Login member={member} />
-    </div>
+      <Stack direction='row' spacing={4} justify={'center'}>
+        <SignIn member={member} />
+        <SignUp member={member} />
+      </Stack>
+    </RecoilRoot>
   )
 }
 

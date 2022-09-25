@@ -41,3 +41,6 @@
 
 ## client IDを発行する際はシークレットを外さないとエラーになる
 [参考](https://rinoguchi.net/2022/01/cognito-identity-provider-api-authentication.html#toc-11)
+
+## わかりやすい
+[参考](https://qiita.com/too/items/54992bb871fc1a2ab101)

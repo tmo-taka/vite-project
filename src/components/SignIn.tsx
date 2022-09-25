@@ -21,7 +21,7 @@ type Props = {
 }
 
 
-export const Login: FC<Props> = (props) =>{
+export const SignIn: FC<Props> = (props) =>{
 
     const handleLoginClick = async () => {
         try {
