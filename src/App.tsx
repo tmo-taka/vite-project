@@ -53,7 +53,7 @@ const App = () =>{
       </Box>
       <Stack direction='row' spacing={4} justify={'center'}>
         <SignIn member={member} />
-        <SignUp member={member} />
+        <SignUp />
       </Stack>
     </RecoilRoot>
   )

@@ -1,16 +1,25 @@
 import {Amplify, Auth } from 'aws-amplify';
-
-export const authConfig =({
-    region: 'ap-northeast-1',
-    userPoolId: import.meta.env.VITE_USER_POOL_ID,
-    userPoolWebClientId: import.meta.env.VITE_USER_POOL_WEB_CLIENT_ID,
-})
+import {authConfig} from '../authConfig';
+import {useState} from 'react'
 
 Amplify.configure({ Auth: authConfig })
 
+type Member ={
+    name: string,
+    password: string
+}
+
+const [newMember,setNewMember] = useState<Member>({name:'',password:''})
+
+const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
+    const obj:Member = {...newMember};
+    obj[key] = event.target.value;
+    setNewMember(obj)
+}
+
 const submitAuthCode = async () => {
     try {
-        const cognitoUser = await Auth.signUp(props.member.name, props.member.password,'t.tkorock221@gmail.com')
+        const cognitoUser = await Auth.signUp(newMember.name, newMember.password,'t.tkorock221@gmail.com')
         console.log('認証に成功', cognitoUser)
     } catch (error:any) {
         if ( error.code === 'UserNotFoundException') {
@@ -24,5 +33,7 @@ const submitAuthCode = async () => {
 }
 
 export {
+    newMember,
+    inputForm,
     submitAuthCode,
 }
