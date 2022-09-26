@@ -8,10 +8,11 @@ export const useSignUp = () => {
 
     type Member ={
         name: string,
-        password: string
+        password: string,
+        mail: string,
     }
 
-    const [newMember,setNewMember] = useState<Member>({name:'',password:''})
+    const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
 
     const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
         const obj:Member = {...newMember};
@@ -19,8 +20,13 @@ export const useSignUp = () => {
         setNewMember(obj)
     }
 
+    const nullCheck = (obj:Member):boolean => {
+        const keys:string[] = Object.keys(obj);
+        return keys.every((key) => key in obj ? obj[key]: false)
+    }
+
     const activeJudge = ():boolean => {
-        if(newMember.password.length > 8){
+        if(newMember.password.length > 7 && nullCheck(newMember)){
             return false
         }else {
             return true
@@ -29,7 +35,7 @@ export const useSignUp = () => {
 
     const submitAuthCode = async () => {
         try {
-            const cognitoUser = await Auth.signUp(newMember.name, newMember.password,'t.tkorock221@gmail.com')
+            const cognitoUser = await Auth.signUp(newMember.name, newMember.password,newMember.mail)
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
             if ( error.code === 'UserNotFoundException') {

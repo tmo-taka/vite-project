@@ -50,6 +50,15 @@ export const SignUp: FC<Props> = (props) =>{
                 </Button>
             </InputRightElement>
             </InputGroup>
+            <Input
+                placeholder='mail'
+                size='md'
+                mb={8}
+                p={4}
+                value={newMember.mail}
+                onChange={(event) => inputForm('mail',event)}
+                bg="white"
+            />
             <ButtonGroup
                 display='flex'
                 justifyContent='center'
