@@ -18,7 +18,7 @@ export const ModalTemplate: FC<Props> = (props) =>{
             <ModalOverlay />
             <ModalContent>
                 <ModalBody>
-                    認証コードを送りました
+                    {props.children}
                 </ModalBody>
             </ModalContent>
         </Modal>
