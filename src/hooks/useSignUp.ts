@@ -1,6 +1,8 @@
+import {useState} from 'react'
+import { useRecoilState } from "recoil";
 import {Amplify, Auth } from 'aws-amplify';
 import {authConfig} from '../authConfig';
-import {useState} from 'react'
+import { stateSignUpAtom } from '@Store/stateSIgnUp'
 
 Amplify.configure({ Auth: authConfig })
 
@@ -13,6 +15,8 @@ export const useSignUp = () => {
     }
 
     const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [stateSignUp, setStateSignUp] = useRecoilState(stateSignUpAtom)
 
     const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
         const obj:Member = {...newMember};
@@ -34,6 +38,7 @@ export const useSignUp = () => {
     }
 
     const submitAuthCode = async () => {
+        setIsLoading(true)
         try {
             const cognitoUser = await Auth.signUp(newMember.name, newMember.password,newMember.mail)
             console.log('認証に成功', cognitoUser)
@@ -46,7 +51,9 @@ export const useSignUp = () => {
             }
             console.log('それ以外のエラー', error)
         }
+        setIsLoading(false)
+        setStateSignUp('step2')
     }
 
-    return { newMember, inputForm, activeJudge ,submitAuthCode}
+    return { newMember, isLoading, inputForm, activeJudge ,submitAuthCode}
 }
