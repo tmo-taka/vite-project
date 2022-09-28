@@ -16,12 +16,18 @@ export const useSignUp = () => {
 
     const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [confirmNumber, setConfirmNumber] = useState<string>('')
     const [stateSignUp, setStateSignUp] = useRecoilState(stateSignUpAtom)
 
     const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
         const obj:Member = {...newMember};
         obj[key] = event.target.value;
         setNewMember(obj)
+    }
+
+    const inputConfirmForm = (event: {target: HTMLInputElement}):void => {
+        const value = event.target.value;
+        setConfirmNumber(value)
     }
 
     const nullCheck = (obj:Member):boolean => {
@@ -41,6 +47,7 @@ export const useSignUp = () => {
         setIsLoading(true)
         try {
             const cognitoUser = await Auth.signUp(newMember.name, newMember.password,newMember.mail)
+            setStateSignUp('step2')
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
             if ( error.code === 'UserNotFoundException') {
@@ -50,10 +57,23 @@ export const useSignUp = () => {
                 console.log('cognitoに該当するユーザーIDはあるがパスワードが一致しない')
             }
             console.log('それ以外のエラー', error)
+        }finally {
+            setIsLoading(false)
         }
-        setIsLoading(false)
-        setStateSignUp('step2')
     }
 
-    return { newMember, isLoading, inputForm, activeJudge ,submitAuthCode}
+    const confirmEmail = async () => {
+        setIsLoading(true)
+        try {
+            const cognitoNumber = await Auth.confirmSignUp(newMember.name,confirmNumber)
+            setStateSignUp('step3')
+            console.log('認証を作成')
+        }catch (error:any) {
+            console.log(error);
+        }finally {
+            setIsLoading(false)
+        }
+    }
+
+    return { newMember, isLoading,confirmNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, confirmEmail}
 }

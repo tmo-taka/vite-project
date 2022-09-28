@@ -17,7 +17,7 @@ export const ModalTemplate: FC<Props> = (props) =>{
         <Modal isOpen={modalFlag} onClose={() => closeModal()}>
             <ModalOverlay />
             <ModalContent>
-                <ModalBody>
+                <ModalBody p={6}>
                     {props.children}
                 </ModalBody>
             </ModalContent>

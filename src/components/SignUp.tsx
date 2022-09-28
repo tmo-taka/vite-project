@@ -4,7 +4,16 @@ import { ModalTemplate } from '@Components/ModalTemplate';
 import { modalFlagAtom } from '@Store/modalFlag'
 import { stateSignUpAtom } from '@Store/stateSIgnUp'
 import { useSignUp } from '@Hooks/useSignUp'
-import { Input ,InputGroup, InputRightElement, Button, ButtonGroup,Text ,Collapse } from "@chakra-ui/react";
+import { Input,
+        InputGroup,
+        InputRightElement,
+        Button,
+        ButtonGroup,
+        Text,
+        Collapse,
+        Center
+    } from "@chakra-ui/react";
+import {CheckCircleIcon} from '@chakra-ui/icons'
 
 type Props = {
     children?: React.ReactNode
@@ -18,7 +27,7 @@ export const SignUp: FC<Props> = (props) =>{
 
     const openModal = () => setModalFlag(true);
 
-    const { newMember, isLoading, inputForm, activeJudge, submitAuthCode } = useSignUp();
+    const { newMember, isLoading, confirmNumber, inputForm, inputConfirmForm, activeJudge, submitAuthCode, confirmEmail } = useSignUp();
 
     const displayClick = () => setShow(!show);
 
@@ -77,15 +86,35 @@ export const SignUp: FC<Props> = (props) =>{
                 </ButtonGroup>
             </Collapse>
             <Collapse in={stateSignUp === 'step2' ? true : false}>
-                <Text>認証コードをメールアドレス宛にお送りしました。</Text>
-                <Text>認証コードを入力してください。</Text>
+                <Text mb={2} align='center'>認証コードをメールアドレス宛にお送りしました。</Text>
+                <Text mb={4} align='center'>認証コードを入力してください。</Text>
                 <Input
                     placeholder='number'
                     size='md'
                     mb={8}
                     p={4}
                     bg="white"
+                    value={confirmNumber}
+                    onChange={(event) => inputConfirmForm(event)}
                 />
+                <ButtonGroup
+                    display='flex'
+                    justifyContent='center'
+                >
+                    <Button
+                        colorScheme='accent'
+                        onClick={() => confirmEmail()}
+                    >
+                        Confirm
+                    </Button>
+                </ButtonGroup>
+            </Collapse>
+            <Collapse in={stateSignUp === 'step3' ? true : false}>
+                <Text mb={2} align='center'>メールアドレスを確認させていただきました。</Text>
+                <Text mb={4} align='center'>{newMember.name}様,是非ともお楽しみください！！</Text>
+                <Center>
+                    <CheckCircleIcon boxSize={20} color="primary.500"/>
+                </Center>
             </Collapse>
             </ModalTemplate>
         </div>
