@@ -14,9 +14,13 @@ export const useSignUp = () => {
         mail: string,
     }
 
+    const errorTypes = [0,1,2,3,99] as const
+    type ErrorType = typeof errorTypes[number];
+
     const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmNumber, setConfirmNumber] = useState<string>('')
+    const [errorNumber,setErrorNumber] = useState<ErrorType>(0)
     const [stateSignUp, setStateSignUp] = useRecoilState(stateSignUpAtom)
 
     const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
@@ -62,18 +66,38 @@ export const useSignUp = () => {
         }
     }
 
+    const submitAgain = async () => {
+        try {
+            await Auth.resendSignUp(newMember.name)
+        }catch (error:any) {
+            console.log(error);
+        }
+    }
+
     const confirmEmail = async () => {
         setIsLoading(true)
         try {
+            setErrorNumber(0);
             const cognitoNumber = await Auth.confirmSignUp(newMember.name,confirmNumber)
             setStateSignUp('step3')
             console.log('認証を作成')
         }catch (error:any) {
-            console.log(error);
+            if(error.code === 'CodeMismatchException'){
+                setErrorNumber(1);
+            }else if(error.code) {
+                console.log(error.code === 'ExpiredCodeException');
+                setErrorNumber(2)
+            }else if(error.code) {
+                console.log(error.code === 'NotAuthorizedException');
+                setErrorNumber(3)
+            }else {
+                console.log(error.code);
+                setErrorNumber(99)
+            }
         }finally {
             setIsLoading(false)
         }
     }
 
-    return { newMember, isLoading,confirmNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, confirmEmail}
+    return { newMember, isLoading,confirmNumber,errorNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, submitAgain, confirmEmail}
 }

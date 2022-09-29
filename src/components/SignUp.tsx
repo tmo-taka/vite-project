@@ -1,6 +1,7 @@
 import { FC ,useState } from 'react';
 import { useRecoilState, useRecoilValue } from "recoil";
 import { ModalTemplate } from '@Components/ModalTemplate';
+import { ErrorText } from '@Components/ErrorText';
 import { modalFlagAtom } from '@Store/modalFlag'
 import { stateSignUpAtom } from '@Store/stateSIgnUp'
 import { useSignUp } from '@Hooks/useSignUp'
@@ -11,7 +12,8 @@ import { Input,
         ButtonGroup,
         Text,
         Collapse,
-        Center
+        Center,
+        FormControl
     } from "@chakra-ui/react";
 import {CheckCircleIcon} from '@chakra-ui/icons'
 
@@ -27,9 +29,23 @@ export const SignUp: FC<Props> = (props) =>{
 
     const openModal = () => setModalFlag(true);
 
-    const { newMember, isLoading, confirmNumber, inputForm, inputConfirmForm, activeJudge, submitAuthCode, confirmEmail } = useSignUp();
+    const { newMember, isLoading, confirmNumber, errorNumber, inputForm, inputConfirmForm, activeJudge, submitAuthCode, submitAgain, confirmEmail } = useSignUp();
 
     const displayClick = () => setShow(!show);
+
+    const numberErrorText = () => {
+        switch(errorNumber){
+            case 1:
+                return '認証コードが間違っています。'
+            case 2:
+                return '認証コードが期限切れです。再送信してください。'
+            case 3:
+                return 'このユーザーは既に認証済みです。'
+            case 99:
+                return '例外的なエラーです'
+            default: ''
+        }
+    }
 
     return (
         <div>
@@ -88,15 +104,19 @@ export const SignUp: FC<Props> = (props) =>{
             <Collapse in={stateSignUp === 'step2' ? true : false}>
                 <Text mb={2} align='center'>認証コードをメールアドレス宛にお送りしました。</Text>
                 <Text mb={4} align='center'>認証コードを入力してください。</Text>
-                <Input
-                    placeholder='number'
-                    size='md'
-                    mb={8}
-                    p={4}
-                    bg="white"
-                    value={confirmNumber}
-                    onChange={(event) => inputConfirmForm(event)}
-                />
+                <FormControl isInvalid={errorNumber !== 0} mb={8}>
+                    <Input
+                        placeholder='number'
+                        size='md'
+                        p={4}
+                        bg="white"
+                        value={confirmNumber}
+                        onChange={(event) => inputConfirmForm(event)}
+                    />
+                    <ErrorText>
+                        {numberErrorText()}
+                    </ErrorText>
+                </FormControl>
                 <ButtonGroup
                     display='flex'
                     justifyContent='center'
@@ -106,6 +126,12 @@ export const SignUp: FC<Props> = (props) =>{
                         onClick={() => confirmEmail()}
                     >
                         Confirm
+                    </Button>
+                    <Button
+                        colorScheme='accent'
+                        onClick={() => submitAgain()}
+                    >
+                        Send Again
                     </Button>
                 </ButtonGroup>
             </Collapse>
