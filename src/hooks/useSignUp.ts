@@ -18,6 +18,7 @@ export const useSignUp = () => {
     type ErrorType = typeof errorTypes[number];
 
     const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
+    const [newErrorMember,setNewErrorMember] = useState<Member>({name:'',password:'',mail:''})
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmNumber, setConfirmNumber] = useState<string>('')
     const [errorNumber,setErrorNumber] = useState<ErrorType>(0)
@@ -27,6 +28,18 @@ export const useSignUp = () => {
         const obj:Member = {...newMember};
         obj[key] = event.target.value;
         setNewMember(obj)
+    }
+
+    const setError = (key: keyof Member, message:string):void =>{
+        const obj:Member = {...newErrorMember};
+        obj[key] = message;
+        setNewErrorMember(obj);
+    }
+
+    const initialObjError = ():void => {
+        const emptyObj:Member = {name:'',password:'',mail:''}
+        const obj:Member = {...newErrorMember, ...emptyObj};
+        setNewErrorMember(obj);
     }
 
     const inputConfirmForm = (event: {target: HTMLInputElement}):void => {
@@ -50,17 +63,23 @@ export const useSignUp = () => {
     const submitAuthCode = async () => {
         setIsLoading(true)
         try {
+            // initialObjError();
             const cognitoUser = await Auth.signUp(newMember.name, newMember.password,newMember.mail)
             setStateSignUp('step2')
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
-            if ( error.code === 'UserNotFoundException') {
-                console.log('cognitoに該当するユーザーIDがない')
+            initialObjError();
+            if ( error.code === 'UsernameExistsException') {
+                setError('name','nameが他ユーザーとかぶっています。')
             }
-            if ( error.code === 'NotAuthorizedException') {
-                console.log('cognitoに該当するユーザーIDはあるがパスワードが一致しない')
+            else if ( error.code === 'InvalidPasswordException') {
+                setError('password','パスワードに大文字小文字を使用してください。')
             }
-            console.log('それ以外のエラー', error)
+            else if ( error.code === 'InvalidParameterException') {
+                setError('password','パスワードは8文字以上にしてください。')
+            }else [
+                console.log(error)
+            ]
         }finally {
             setIsLoading(false)
         }
@@ -99,5 +118,5 @@ export const useSignUp = () => {
         }
     }
 
-    return { newMember, isLoading,confirmNumber,errorNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, submitAgain, confirmEmail}
+    return { newMember, newErrorMember, isLoading,confirmNumber,errorNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, submitAgain, confirmEmail}
 }

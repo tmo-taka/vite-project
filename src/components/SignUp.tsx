@@ -29,7 +29,7 @@ export const SignUp: FC<Props> = (props) =>{
 
     const openModal = () => setModalFlag(true);
 
-    const { newMember, isLoading, confirmNumber, errorNumber, inputForm, inputConfirmForm, activeJudge, submitAuthCode, submitAgain, confirmEmail } = useSignUp();
+    const { newMember, newErrorMember, isLoading, confirmNumber, errorNumber, inputForm, inputConfirmForm, activeJudge, submitAuthCode, submitAgain, confirmEmail } = useSignUp();
 
     const displayClick = () => setShow(!show);
 
@@ -52,32 +52,40 @@ export const SignUp: FC<Props> = (props) =>{
             <Button colorScheme='accent' variant='outline' onClick={() => openModal()}>Sign Up</Button>
             <ModalTemplate>
             <Collapse in={stateSignUp === 'step1' ? true : false}>
-                <Input
-                    placeholder='name'
-                    size='md'
-                    mb={8}
-                    p={4}
-                    value={newMember.name}
-                    onChange={(event) => inputForm('name',event)}
-                    bg="white"
-                />
-                <InputGroup size='md'>
-                <Input
-                    placeholder='password'
-                    size='md'
-                    mb={8}
-                    p={4}
-                    type={show ? 'text' : 'password'}
-                    bg="white"
-                    value={newMember.password}
-                    onChange={(event) => inputForm('password',event)}
-                />
-                <InputRightElement width='4.5rem'>
-                    <Button h='1.75rem' size='sm' onClick={displayClick}>
-                    {show ? 'Hide' : 'Show'}
-                    </Button>
-                </InputRightElement>
-                </InputGroup>
+                <FormControl isInvalid={newErrorMember.name} mb={8}>
+                    <Input
+                        placeholder='name'
+                        size='md'
+                        p={4}
+                        value={newMember.name}
+                        onChange={(event) => inputForm('name',event)}
+                        bg="white"
+                    />
+                    <ErrorText>
+                        {newErrorMember.name}
+                    </ErrorText>
+                </FormControl>
+                <FormControl isInvalid={newErrorMember.password} mb={8}>
+                    <InputGroup size='md'>
+                        <Input
+                            placeholder='password'
+                            size='md'
+                            p={4}
+                            type={show ? 'text' : 'password'}
+                            bg="white"
+                            value={newMember.password}
+                            onChange={(event) => inputForm('password',event)}
+                        />
+                        <InputRightElement width='4.5rem'>
+                            <Button h='1.75rem' size='sm' onClick={displayClick}>
+                            {show ? 'Hide' : 'Show'}
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>
+                    <ErrorText>
+                        {newErrorMember.password}
+                    </ErrorText>
+                </FormControl>
                 <Input
                     placeholder='mail'
                     size='md'
