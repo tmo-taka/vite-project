@@ -3,6 +3,7 @@ import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text ,Stac
 import { RecoilRoot } from 'recoil'
 import { SignIn } from '@Components/SignIn'
 import { SignUp } from '@Components/SignUp'
+import { useAPI } from '@Hooks/useAPI'
 
 const App = () =>{
   type Member ={
@@ -11,6 +12,9 @@ const App = () =>{
   }
   const [member,setMember] = useState<Member>({name:'',password:''})
   const [show,setShow] = useState<Boolean>(false);
+  const { fetchData } = useAPI();
+
+  fetchData();
 
   const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
       const obj:Member = {...member};
@@ -24,6 +28,7 @@ const App = () =>{
     <RecoilRoot>
       <Heading mb={16}>Hello,<Text color="primary.500">{member.name}</Text></Heading>
       <Box w='560px' m={[0, 'auto']} >
+        <form>
         <Input
           placeholder='name'
           size='md'
@@ -50,6 +55,7 @@ const App = () =>{
             </Button>
           </InputRightElement>
         </InputGroup>
+        </form>
       </Box>
       <Stack direction='row' spacing={4} justify={'center'}>
         <SignIn member={member} />

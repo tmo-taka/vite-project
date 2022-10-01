@@ -33,13 +33,13 @@ export const useSignUp = () => {
     const setError = (key: keyof Member, message:string):void =>{
         const obj:Member = {...newErrorMember};
         obj[key] = message;
-        setNewErrorMember(obj);
+        setNewErrorMember((state) => ({...state, ...obj}));
     }
 
     const initialObjError = ():void => {
-        const emptyObj:Member = {name:'',password:'',mail:''}
-        const obj:Member = {...newErrorMember, ...emptyObj};
-        setNewErrorMember(obj);
+        const emptyObj:Member = {name: '', password:'',mail:''}
+        setNewErrorMember((state) => ({...state,...emptyObj}))
+        console.log('初期化' + newErrorMember);
     }
 
     const inputConfirmForm = (event: {target: HTMLInputElement}):void => {
@@ -62,24 +62,26 @@ export const useSignUp = () => {
 
     const submitAuthCode = async () => {
         setIsLoading(true)
+        initialObjError()
         try {
-            // initialObjError();
             const cognitoUser = await Auth.signUp(newMember.name, newMember.password,newMember.mail)
             setStateSignUp('step2')
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
-            initialObjError();
             if ( error.code === 'UsernameExistsException') {
+                initialObjError()
                 setError('name','nameが他ユーザーとかぶっています。')
             }
             else if ( error.code === 'InvalidPasswordException') {
+                initialObjError()
                 setError('password','パスワードに大文字小文字を使用してください。')
             }
             else if ( error.code === 'InvalidParameterException') {
+                initialObjError()
                 setError('password','パスワードは8文字以上にしてください。')
-            }else [
+            }else {
                 console.log(error)
-            ]
+            }
         }finally {
             setIsLoading(false)
         }

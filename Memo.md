@@ -44,3 +44,6 @@
 
 ## わかりやすい
 [参考](https://qiita.com/too/items/54992bb871fc1a2ab101)
+
+## vite.configからenvを取得
+[参考](https://dev.classmethod.jp/articles/vite-index-html-read-env-variables/)
