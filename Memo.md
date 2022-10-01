@@ -47,3 +47,6 @@
 
 ## vite.configからenvを取得
 [参考](https://dev.classmethod.jp/articles/vite-index-html-read-env-variables/)
+
+## APPasyncでチャットアプリ
+[参考](https://fixel.co.jp/blog/amplify-realtime-chat/)
