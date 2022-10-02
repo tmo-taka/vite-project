@@ -3,7 +3,7 @@ import { Input , Button,  Box} from "@chakra-ui/react";
 import { useAPI } from '@Hooks/useAPI'
 
 export const ChatArea = () =>{
-    const { inputMessage, setInputMessage, fetchData, saveData } = useAPI();
+    const { inputMessage, chatMessage, setInputMessage, fetchData, saveData } = useAPI();
 
     useEffect(()=> {
         fetchData();
@@ -20,6 +20,7 @@ export const ChatArea = () =>{
 
     return (
         <Box>
+            {chatMessage.map((message, index) => {return (<div key={index}>{message.message}</div>)})}
             <Input
                 placeholder='name'
                 size='md'

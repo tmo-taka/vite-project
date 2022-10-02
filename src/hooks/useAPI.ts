@@ -11,11 +11,15 @@ export const useAPI =() => {
     Amplify.configure({ Auth: authConfig,aws_appsync_authenticationType: import.meta.env.VITE_API_KEY})
 
     const [inputMessage, setInputMessage] = useState<string>('');
+    const [chatMessage, setChatMessage] = useState<ChatMessage[]>([]);
 
     async function fetchData() {
         try{
             const items = await API.graphql(graphqlOperation(listChatMessages));
-            console.log(items.message)
+            if ("data" in items && items.data) {
+                const messages = items.data;
+                setChatMessage(messages.listChatMessages.items);
+            }
         }catch(err:any) {
             console.log(err)
         }
@@ -25,6 +29,7 @@ export const useAPI =() => {
         const model = new ChatMessage({
             message: inputMessage,
         });
+        console.log(model);
         try{
             await API.graphql(
                 graphqlOperation(createChatMessage, {
@@ -37,5 +42,5 @@ export const useAPI =() => {
         setInputMessage('')
     }
 
-    return {inputMessage,setInputMessage, fetchData, saveData}
+    return {inputMessage, chatMessage, setInputMessage, fetchData, saveData}
 }
