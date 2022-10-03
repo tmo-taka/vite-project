@@ -15,7 +15,7 @@ export default defineConfig(({mode}) => {
       port: 3000,
       proxy: {
           '/api/aws/': {
-              target: env.VITE_API_URL,
+              target: env.VITE_ENDPOINT,
               changeOrigin: true,
               rewrite: (path) => path.replace('/api/aws/', ''),
           }
