@@ -1,14 +1,16 @@
 
 import {useState} from 'react'
-import {Amplify, API, graphqlOperation } from "aws-amplify";
-import {authConfig} from '../authConfig';
+import {Amplify,API, graphqlOperation } from "aws-amplify";
+import {apiConfig} from '../aws-export';
 import { ChatMessage } from "../models";
 import { createChatMessage } from "../graphql/mutations";
 import { listChatMessages,  } from "../graphql/queries";
 
 export const useAPI =() => {
 
-    Amplify.configure({...authConfig, aws_appsync_authenticationType: import.meta.env.VITE_API_KEY})
+    Amplify.configure({
+        API: apiConfig,
+    })
 
     const [inputMessage, setInputMessage] = useState<string>('');
     const [chatMessage, setChatMessage] = useState<ChatMessage[]>([]);

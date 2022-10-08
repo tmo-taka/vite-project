@@ -1,7 +1,7 @@
 import {Amplify, Auth } from 'aws-amplify';
 import { Button } from "@chakra-ui/react";
 import { FC } from 'react';
-import {authConfig} from '../authConfig'
+import {authConfig} from '../aws-export'
 
 Amplify.configure({ Auth: authConfig })
 

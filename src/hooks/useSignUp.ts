@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { useRecoilState } from "recoil";
 import {Amplify, Auth } from 'aws-amplify';
-import {authConfig} from '../authConfig';
+import {authConfig} from '../aws-export';
 import { stateSignUpAtom } from '@Store/stateSIgnUp'
 
 Amplify.configure({ Auth: authConfig })
