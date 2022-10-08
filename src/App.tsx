@@ -24,7 +24,9 @@ const App = () =>{
   return (
     <RecoilRoot>
       <Heading mb={16}>Hello,<Text color="primary.500">{member.name}</Text></Heading>
-      <ChatArea />
+      <Box w='560px' m={[0,'auto']}>
+        <ChatArea />
+      </Box>
       <Box w='560px' m={[0, 'auto']} >
         <form>
         <Input

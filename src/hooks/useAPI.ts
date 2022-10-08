@@ -20,7 +20,6 @@ export const useAPI =() => {
             const items = await API.graphql(graphqlOperation(listChatMessages));
             if ("data" in items && items.data) {
                 const messages = items.data;
-                console.log(messages)
                 setChatMessage(messages.listChatMessages.items);
             }
         }catch(err:any) {
@@ -32,7 +31,6 @@ export const useAPI =() => {
         const model = new ChatMessage({
             message: inputMessage,
         });
-        console.log(model);
         try{
             await API.graphql(
                 graphqlOperation(createChatMessage, {

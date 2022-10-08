@@ -7,7 +7,7 @@ export const ChatArea = () =>{
 
     useEffect(()=> {
         fetchData();
-    },[])
+    },[chatMessage])
 
     const setMessage = (event: {target: HTMLInputElement}):void =>{
         const message:string = event.target.value;
@@ -22,7 +22,7 @@ export const ChatArea = () =>{
         <Box>
             {chatMessage.map((message, index) => {return (<div key={index}>{message.message}</div>)})}
             <Input
-                placeholder='name'
+                placeholder='text'
                 size='md'
                 mb={8}
                 p={4}
@@ -30,7 +30,7 @@ export const ChatArea = () =>{
                 onChange={setMessage}
                 bg="white"
             />
-            <Button h='1.75rem' size='sm' onClick={submitMessage}>送信</Button>
+            <Button h='1.75rem' size='sm' onClick={submitMessage}>投稿</Button>
         </Box>
     )
 }
