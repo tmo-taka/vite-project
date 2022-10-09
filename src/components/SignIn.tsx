@@ -2,6 +2,8 @@ import {Amplify, Auth } from 'aws-amplify';
 import { Button } from "@chakra-ui/react";
 import { FC } from 'react';
 import {authConfig} from '../aws-export'
+import { useRecoilState } from "recoil";
+import { loginTokenAtom } from '@Store/loginToken'
 
 Amplify.configure({ Auth: authConfig })
 
@@ -18,10 +20,12 @@ type Props = {
 
 export const SignIn: FC<Props> = (props) =>{
 
+    const [loginToken,setLoginToken] = useRecoilState(loginTokenAtom);
+
     const handleLoginClick = async () => {
         try {
             const cognitoUser = await Auth.signIn(props.member.name, props.member.password)
-            console.log('認証に成功', cognitoUser)
+            setLoginToken(cognitoUser.userDataKey);
         } catch (error:any) {
             if ( error.code === 'UserNotFoundException') {
                 console.log('cognitoに該当するユーザーIDがない')

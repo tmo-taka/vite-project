@@ -2,12 +2,16 @@ import { useEffect } from 'react'
 import { Input , Button,  Box} from "@chakra-ui/react";
 import { useAPI } from '@Hooks/useAPI'
 
-export const ChatArea = () =>{
+type Props = {
+    children?: React.ReactNode;
+};
+
+export const ChatArea: FC<Props> = (props) =>{
     const { inputMessage, chatMessage, setInputMessage, fetchData, saveData } = useAPI();
 
     useEffect(()=> {
         fetchData();
-    },[chatMessage])
+    },[inputMessage])
 
     const setMessage = (event: {target: HTMLInputElement}):void =>{
         const message:string = event.target.value;

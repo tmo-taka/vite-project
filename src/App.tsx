@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text ,Stack } from "@chakra-ui/react";
-import { RecoilRoot } from 'recoil'
+import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text ,Stack ,Collapse } from "@chakra-ui/react";
 import { SignIn } from '@Components/SignIn'
 import { SignUp } from '@Components/SignUp'
 import { ChatArea } from '@Components/ChatArea'
+import { useRecoilValue } from "recoil";
+import { loginTokenAtom } from '@Store/loginToken'
 
 const App = () =>{
   type Member ={
@@ -12,6 +13,7 @@ const App = () =>{
   }
   const [member,setMember] = useState<Member>({name:'',password:''})
   const [show,setShow] = useState<Boolean>(false);
+  const loginToken = useRecoilValue(loginTokenAtom);
 
   const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
       const obj:Member = {...member};
@@ -22,46 +24,50 @@ const App = () =>{
   const displayClick = () => setShow(!show);
 
   return (
-    <RecoilRoot>
+    <Box>
       <Heading mb={16}>Hello,<Text color="primary.500">{member.name}</Text></Heading>
       <Box w='560px' m={[0,'auto']}>
-        <ChatArea />
+        <Collapse in={loginToken ? true: false} animateOpacity>
+          <ChatArea />
+        </Collapse>
       </Box>
-      <Box w='560px' m={[0, 'auto']} >
-        <form>
-        <Input
-          placeholder='name'
-          size='md'
-          mb={8}
-          p={4}
-          value={member.name}
-          onChange={(event) => inputForm('name',event)}
-          bg="white"
-        />
-        <InputGroup size='md'>
+      <Collapse in={loginToken ? false: true} animateOpacity>
+        <Box w='560px' m={[0, 'auto']} >
+          <form>
           <Input
-            placeholder='password'
+            placeholder='name'
             size='md'
             mb={8}
             p={4}
-            type={show ? 'text' : 'password'}
+            value={member.name}
+            onChange={(event) => inputForm('name',event)}
             bg="white"
-            value={member.password}
-            onChange={(event) => inputForm('password',event)}
           />
-          <InputRightElement width='4.5rem'>
-            <Button h='1.75rem' size='sm' onClick={displayClick}>
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-        </form>
-      </Box>
-      <Stack direction='row' spacing={4} justify={'center'}>
-        <SignIn member={member} />
-        <SignUp />
-      </Stack>
-    </RecoilRoot>
+          <InputGroup size='md'>
+            <Input
+              placeholder='password'
+              size='md'
+              mb={8}
+              p={4}
+              type={show ? 'text' : 'password'}
+              bg="white"
+              value={member.password}
+              onChange={(event) => inputForm('password',event)}
+            />
+            <InputRightElement width='4.5rem'>
+              <Button h='1.75rem' size='sm' onClick={displayClick}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          </form>
+        </Box>
+        <Stack direction='row' spacing={4} justify={'center'}>
+          <SignIn member={member} />
+          <SignUp />
+        </Stack>
+      </Collapse>
+    </Box>
   )
 }
 
