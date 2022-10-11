@@ -1,43 +1,46 @@
-import {Amplify, Auth } from 'aws-amplify';
-import { Button } from "@chakra-ui/react";
 import { FC } from 'react';
-import {authConfig} from '../aws-export'
-import { useRecoilState } from "recoil";
-import { loginTokenAtom } from '@Store/loginToken'
+import { Box, Input ,InputGroup, InputRightElement, Button } from "@chakra-ui/react";
+import { useSignIn } from '@Hooks/useSignIn';
 
-Amplify.configure({ Auth: authConfig })
-
-type Member ={
-    name: string,
-    password: string
-}
 
 type Props = {
-    readonly member: Member,
     children?: React.ReactNode
 }
 
-
 export const SignIn: FC<Props> = (props) =>{
 
-    const [loginToken,setLoginToken] = useRecoilState(loginTokenAtom);
-
-    const handleLoginClick = async () => {
-        try {
-            const cognitoUser = await Auth.signIn(props.member.name, props.member.password)
-            setLoginToken(cognitoUser.userDataKey);
-        } catch (error:any) {
-            if ( error.code === 'UserNotFoundException') {
-                console.log('cognitoに該当するユーザーIDがない')
-            }
-            if ( error.code === 'NotAuthorizedException') {
-                console.log('cognitoに該当するユーザーIDはあるがパスワードが一致しない')
-            }
-            console.log('それ以外のエラー', error)
-        }
-    }
-
+    const { member , show, inputForm, displayClick }= useSignIn();
+    console.log(member.name);
     return (
-        <Button colorScheme='accent' onClick={handleLoginClick}>Sign In</Button>
+        <Box w='560px' m={[0, 'auto']} >
+            <form>
+                <Input
+                    placeholder='name'
+                    size='md'
+                    mb={8}
+                    p={4}
+                    value={member.name}
+                    onChange={(event) => inputForm('name',event)}
+                    bg="white"
+                />
+                <InputGroup size='md'>
+                    <Input
+                        placeholder='password'
+                        size='md'
+                        mb={8}
+                        p={4}
+                        type={show ? 'text' : 'password'}
+                        bg="white"
+                        value={member.password}
+                        onChange={(event) => inputForm('password',event)}
+                    />
+                    <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='sm' onClick={displayClick}>
+                            {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
+            </form>
+        </Box>
     )
 }

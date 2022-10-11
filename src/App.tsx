@@ -1,27 +1,15 @@
-import { useState } from 'react'
-import { Input ,InputGroup, InputRightElement, Button , Heading, Box, Text ,Stack ,Collapse } from "@chakra-ui/react";
+import { useEffect } from 'react'
+import { Box, Button , Heading, Text ,Stack ,Collapse } from "@chakra-ui/react";
 import { SignIn } from '@Components/SignIn'
 import { SignUp } from '@Components/SignUp'
 import { ChatArea } from '@Components/ChatArea'
+import { useSignIn } from '@Hooks/useSignIn'
 import { useRecoilValue } from "recoil";
 import { loginTokenAtom } from '@Store/loginToken'
 
 const App = () =>{
-  type Member ={
-    name: string,
-    password: string
-  }
-  const [member,setMember] = useState<Member>({name:'',password:''})
-  const [show,setShow] = useState<Boolean>(false);
+  const { member, confirmSignIn }= useSignIn()
   const loginToken = useRecoilValue(loginTokenAtom);
-
-  const inputForm = (key: keyof Member, event: {target: HTMLInputElement}):void =>{
-      const obj:Member = {...member};
-      obj[key] = event.target.value;
-      setMember(obj)
-  }
-
-  const displayClick = () => setShow(!show);
 
   return (
     <Box>
@@ -32,38 +20,9 @@ const App = () =>{
         </Collapse>
       </Box>
       <Collapse in={loginToken ? false: true} animateOpacity>
-        <Box w='560px' m={[0, 'auto']} >
-          <form>
-          <Input
-            placeholder='name'
-            size='md'
-            mb={8}
-            p={4}
-            value={member.name}
-            onChange={(event) => inputForm('name',event)}
-            bg="white"
-          />
-          <InputGroup size='md'>
-            <Input
-              placeholder='password'
-              size='md'
-              mb={8}
-              p={4}
-              type={show ? 'text' : 'password'}
-              bg="white"
-              value={member.password}
-              onChange={(event) => inputForm('password',event)}
-            />
-            <InputRightElement width='4.5rem'>
-              <Button h='1.75rem' size='sm' onClick={displayClick}>
-                {show ? 'Hide' : 'Show'}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          </form>
-        </Box>
+        <SignIn />
         <Stack direction='row' spacing={4} justify={'center'}>
-          <SignIn member={member} />
+          <Button colorScheme='accent' onClick={() => confirmSignIn()}>Sign In</Button>
           <SignUp />
         </Stack>
       </Collapse>
