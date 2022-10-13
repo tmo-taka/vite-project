@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import {Amplify, Auth } from 'aws-amplify';
 import {authConfig} from '../aws-export';
 import { stateSignUpAtom } from '@Store/stateSIgnUp'
+import { newMemberAtom, newErrorMemberAtom } from '@Store/newMemeber'
 
 Amplify.configure({ Auth: authConfig })
 
@@ -17,8 +18,8 @@ export const useSignUp = () => {
     const errorTypes = [0,1,2,3,99] as const
     type ErrorType = typeof errorTypes[number];
 
-    const [newMember,setNewMember] = useState<Member>({name:'',password:'',mail:''})
-    const [newErrorMember,setNewErrorMember] = useState<Member>({name:'',password:'',mail:''})
+    const [newMember,setNewMember] = useRecoilState<Member>(newMemberAtom)
+    const [newErrorMember,setNewErrorMember] = useRecoilState<Member>(newErrorMemberAtom)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmNumber, setConfirmNumber] = useState<string>('')
     const [errorNumber,setErrorNumber] = useState<ErrorType>(0)
@@ -37,9 +38,9 @@ export const useSignUp = () => {
     }
 
     const initialObjError = ():void => {
-        const emptyObj:Member = {name: '', password:'',mail:''}
-        setNewErrorMember((state) => ({...state,...emptyObj}))
-        console.log('初期化' + newErrorMember);
+        const emptyObj:Member = {name: '', password:'te',mail:''}
+        setNewErrorMember(emptyObj)
+        console.log(newErrorMember);
     }
 
     const inputConfirmForm = (event: {target: HTMLInputElement}):void => {
@@ -69,15 +70,12 @@ export const useSignUp = () => {
             console.log('認証に成功', cognitoUser)
         } catch (error:any) {
             if ( error.code === 'UsernameExistsException') {
-                initialObjError()
                 setError('name','nameが他ユーザーとかぶっています。')
             }
             else if ( error.code === 'InvalidPasswordException') {
-                initialObjError()
                 setError('password','パスワードに大文字小文字を使用してください。')
             }
             else if ( error.code === 'InvalidParameterException') {
-                initialObjError()
                 setError('password','パスワードは8文字以上にしてください。')
             }else {
                 console.log(error)
@@ -120,5 +118,17 @@ export const useSignUp = () => {
         }
     }
 
-    return { newMember, newErrorMember, isLoading,confirmNumber,errorNumber, inputForm, inputConfirmForm, activeJudge ,submitAuthCode, submitAgain, confirmEmail}
+    return {
+        newMember,
+        newErrorMember,
+        isLoading,
+        confirmNumber,
+        errorNumber,
+        inputForm,
+        inputConfirmForm,
+        activeJudge,
+        submitAuthCode,
+        submitAgain,
+        confirmEmail
+    }
 }
