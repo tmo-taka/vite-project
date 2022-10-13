@@ -86,16 +86,21 @@ export const SignUp: FC<Props> = (props) =>{
                         {newErrorMember.password}
                     </ErrorText>
                 </FormControl>
-                <Input
-                    placeholder='mail'
-                    size='md'
-                    mb={8}
-                    p={4}
-                    value={newMember.mail}
-                    onChange={(event) => inputForm('mail',event)}
-                    bg="white"
-                />
+                <FormControl isInvalid={newErrorMember.mail}>
+                    <Input
+                        placeholder='mail'
+                        size='md'
+                        p={4}
+                        value={newMember.mail}
+                        onChange={(event) => inputForm('mail',event)}
+                        bg="white"
+                    />
+                    <ErrorText>
+                        {newErrorMember.mail}
+                    </ErrorText>
+                </FormControl>
                 <ButtonGroup
+                    mt={8}
                     display='flex'
                     justifyContent='center'
                 >
