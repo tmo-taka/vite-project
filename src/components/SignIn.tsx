@@ -10,7 +10,6 @@ type Props = {
 export const SignIn: FC<Props> = (props) =>{
 
     const { member , show, inputForm, displayClick }= useSignIn();
-    console.log(member.name);
     return (
         <Box w='560px' m={[0, 'auto']} >
             <form>
