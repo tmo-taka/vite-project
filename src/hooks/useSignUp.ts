@@ -38,7 +38,7 @@ export const useSignUp = () => {
     }
 
     const initialObjError = ():void => {
-        const emptyObj:Member = {name: '', password:'te',mail:''}
+        const emptyObj:Member = {name: '', password:'',mail:''}
         setNewErrorMember(emptyObj)
         console.log(newErrorMember);
     }
